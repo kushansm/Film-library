@@ -24,13 +24,12 @@ export default {
 
 <style scoped>
 header {
-  background-color: #000;
+  background-color: #0e0e0e;
   color: white;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  padding: 1rem 2rem;
   width: 100%;
   z-index: 100;
 }
@@ -39,8 +38,9 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1280px;
   margin: 0 auto;
+  padding-left: 7vw;
+  padding-right: 7vw;
 }
 
 

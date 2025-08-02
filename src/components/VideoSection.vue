@@ -130,10 +130,11 @@ export default {
 }
 
 .movie-grid {
-  padding: 2rem;
   color: white;
   background-color: #111;
   min-height: 100vh;
+  padding-left: 7vw;
+  padding-right: 7vw;
 }
 
 .movie-grid h2 {
@@ -156,13 +157,14 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
+;
 }
 
 .movie-card {
   background-color: #222;
   border-radius: 8px;
   padding: 0rem;
-  width: 30%;
+  width: 31%;
   position: relative;
   box-shadow: 0 0 5px #000;
 }

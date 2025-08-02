@@ -24,7 +24,8 @@ export default {
   background-color: black;
   color: white;
   width: 100%;
-  padding: 4rem 2rem;
+  padding-left: 7vw;
+  padding-right: 7vw;
 }
 
 .content {
