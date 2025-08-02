@@ -1,4 +1,7 @@
-<script setup lang="ts">
+<script >
+export default {
+  name: 'Movielibrary'
+}
 </script>
 
 <template>
@@ -21,7 +24,6 @@
   background-color: black;
   color: white;
   width: 100%;
-  min-height: 60vh;
   padding: 4rem 2rem;
 }
 
