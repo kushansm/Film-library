@@ -3,7 +3,7 @@
     <Header />
     <HeroSection />
 <!--    <Features />-->
-<!--    <Footer />-->
+    <Footer />
   </div>
 </template>
 
@@ -11,9 +11,9 @@
 import Header from './components/Header.vue'
 import HeroSection from './components/HeroSection.vue'
 // import Features from './components/Features.vue'
-// import Footer from './components/Footer.vue'
+import Footer from './components/Footer.vue'
 
 export default {
-  components: { Header, HeroSection }
+  components: { Header, HeroSection, Footer }
 }
 </script>
