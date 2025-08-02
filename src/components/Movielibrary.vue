@@ -23,9 +23,8 @@ export default {
   display: flex;
   background-color: black;
   color: white;
-  width: 100%;
+  width: auto;
   padding-left: 7vw;
-  padding-right: 7vw;
 }
 
 .content {

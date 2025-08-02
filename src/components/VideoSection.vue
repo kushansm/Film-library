@@ -112,12 +112,14 @@ export default {
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
+
 }
 
 .search-bar h2 {
   font-size: 2rem;
-  margin: 0;
   color: white;
+  margin-top: 4vh;
+
 }
 
 .search-input {
