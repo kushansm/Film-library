@@ -1,6 +1,6 @@
 <template>
-  <header>
-    <nav>
+  <header :dir="isRTL ? 'rtl' : 'ltr'">
+    <nav role="navigation" aria-label="Main navigation">
       <div class="logo">
         <img src="../../src/assets/Logo White.svg" alt="Logo" />
       </div>
@@ -13,19 +13,38 @@
         <li class="hide-on-md"><a href="#">LOCATION & CONTACT</a></li>
       </ul>
 
-      <div class="hamburger" @click="toggleMenu">
+      <div
+          class="hamburger"
+          @click="toggleMenu"
+          role="button"
+          aria-label="Open menu"
+          tabindex="0"
+          @keyup.enter="toggleMenu"
+      >
         <img src="../../src/assets/Menu-White.svg" alt="Menu Icon" />
       </div>
     </nav>
 
-    <!-- Overlay Menu Drawer -->
-    <div class="drawer" :class="{ active: menuOpen }">
-      <div class="close-icon" @click="toggleMenu">
+    <!-- Drawer Menu -->
+    <div
+        class="drawer"
+        :class="{ active: menuOpen }"
+        role="dialog"
+        aria-modal="true"
+    >
+      <div
+          class="close-icon"
+          @click="toggleMenu"
+          role="button"
+          aria-label="Close menu"
+          tabindex="0"
+          @keyup.enter="toggleMenu"
+      >
         <img src="../../src/assets/Close White.svg" alt="Close Icon" />
       </div>
       <ul class="drawer-menu">
         <li v-for="(item, index) in drawerMenuItems" :key="index">
-          <a href="#">{{ item }}</a>
+          <a href="#" tabindex="0">{{ item }}</a>
         </li>
       </ul>
     </div>
@@ -54,12 +73,14 @@ export default {
   computed: {
     drawerMenuItems() {
       if (this.windowWidth >= 768 && this.windowWidth < 1024) {
-        // Tablet View — Show only the hidden items in drawer
-        return this.menuItems.slice(3, 5);
+        return this.menuItems.slice(3, 5); // tablet
       } else {
-        // Mobile View — Show all items in drawer
-        return this.menuItems;
+        return this.menuItems; // mobile
       }
+    },
+    isRTL() {
+      // Change to dynamic detection if needed (e.g., locale === 'ar')
+      return false;
     },
   },
   methods: {
@@ -73,7 +94,7 @@ export default {
   mounted() {
     window.addEventListener("resize", this.updateWindowWidth);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener("resize", this.updateWindowWidth);
   },
 };
@@ -121,37 +142,38 @@ nav {
   font-size: 0.9rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  transition: color 0.3s, transform 0.3s;
 }
-
 .nav-menu a:hover,
 .nav-menu a:focus {
-  text-decoration: underline;
+  color: #f89603;
+  transform: translateY(-2px);
 }
 
-/* Hamburger Icon */
+/* Hamburger */
 .hamburger {
   display: none;
   cursor: pointer;
 }
 
-/* Drawer Menu */
+/* Drawer */
 .drawer {
   position: fixed;
   top: 0;
-  right: -300px;
+  right: 0;
   width: 250px;
   height: 100vh;
   background-color: #0e0e0e;
+  transform: translateX(100%);
+  transition: transform 0.4s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 4rem;
-  transition: right 0.4s ease-in-out;
   z-index: 2000;
 }
-
 .drawer.active {
-  right: 0;
+  transform: translateX(0);
 }
 
 .drawer-menu {
@@ -162,16 +184,20 @@ nav {
   flex-direction: column;
   gap: 2rem;
 }
-
 .drawer-menu a {
   color: white;
   font-size: 1.2rem;
   text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.drawer-menu a:hover,
+.drawer-menu a:focus {
+  color: #f89603;
+  transform: translateX(5px);
 }
 
 .close-icon {
   position: absolute;
-
   top: 2vh;
   right: 2vw;
   cursor: pointer;
@@ -185,8 +211,36 @@ nav {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1500;
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
+/* RTL layout support */
+:host([dir="rtl"]) nav {
+  direction: rtl;
+  flex-direction: row-reverse;
+}
+:host([dir="rtl"]) .drawer {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+}
+:host([dir="rtl"]) .drawer.active {
+  transform: translateX(0);
+}
+:host([dir="rtl"]) .close-icon {
+  right: auto;
+  left: 2vw;
+}
+
+/* Media Queries */
 @media (min-width: 1024px) {
   .hide-on-md {
     display: inline;
@@ -202,9 +256,6 @@ nav {
   }
   .hamburger {
     display: block;
-  }
-  .nav-menu {
-    display: flex;
   }
 }
 
