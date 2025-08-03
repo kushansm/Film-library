@@ -44,10 +44,13 @@ function validate() {
 </script>
 
 <template>
+  <section class="contact-us-heading">
+    <h2>How to reach us</h2>
+    <p class="intro-text">Lorem ipsum dolor sit amet, consetetur.</p>
+  </section>
+
   <section class="contact-map">
     <div class="form-section">
-      <h2>How to reach us</h2>
-      <p class="intro-text">Lorem ipsum dolor sit amet, consetetur.</p>
       <form @submit.prevent="validate">
         <div class="form-group" :class="{ error: errors.firstName }">
           <label for="firstName">First Name *</label>
@@ -86,17 +89,13 @@ function validate() {
           <p v-if="errors.agreed">{{ errors.agreed }}</p>
         </div>
 
-
         <button type="submit">SUBMIT</button>
       </form>
-
     </div>
 
     <div class="map-section">
       <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.204040437366!2d-3.6530426843102294!3d40.43966056393764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422f183e51e3b9%3A0x60a3136e08673a6d!2sAmadeus%20IT%20Group!5e0!3m2!1sen!2slk!4v1688283556186!5m2!1sen!2slk"
-          width="100%"
-          height="100%"
           style="border:0;"
           allowfullscreen
           loading="lazy"
@@ -106,33 +105,48 @@ function validate() {
   </section>
 </template>
 
+
 <style scoped>
-.contact-map {
-  display: flex;
-  width: auto;
-  min-height: 100vh;
+.contact-us-heading {
+  padding: 2rem 7vw 1rem;
   background-color: #000;
   color: white;
-  flex-wrap: wrap;
-  padding-left: 7vw;
-  padding-right: 7vw;
 }
 
-.form-section,
-.map-section {
-  flex: 1;
-  padding: 2rem;
-}
-
-h2 {
-  margin-bottom: 0.5rem;
+.contact-us-heading h2 {
   font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
-.intro-text {
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
+.contact-us-heading .intro-text {
   color: #ccc;
+  font-size: 1rem;
+}
+
+.contact-map {
+  background-color: #000;
+  color: white;
+  padding: 7vw;
+
+  /* Grid for medium+ screens */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+/* Apply 1/3 - 2/3 split on medium+ screens */
+@media (min-width: 768px) {
+  .contact-map {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.form-section{
+  width: 100%;
+}
+
+.map-section {
+  margin-right: 5vw;
 }
 
 form {
@@ -166,7 +180,6 @@ button {
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
-  margin-top: 0.5rem;
   width: fit-content;
   align-self: flex-end;
 }
@@ -186,7 +199,6 @@ button:hover {
   margin-top: 0.25rem;
 }
 
-
 .checkbox-wrapper {
   display: flex;
   align-items: center;
@@ -205,10 +217,14 @@ button:hover {
   cursor: pointer;
 }
 
+
+
 .map-section iframe {
   width: 100%;
   height: 100%;
   min-height: 500px;
   border: none;
+  margin-left: 5vw;
 }
+
 </style>

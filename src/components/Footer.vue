@@ -37,6 +37,8 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding-left: 7vw;
+  padding-right: 7vw;
 }
 
 
@@ -96,3 +98,5 @@ footer {
 }
 </style>
 
+<script setup lang="ts">
+</script>
