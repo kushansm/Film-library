@@ -1,7 +1,7 @@
 <template>
   <section class="movie-grid">
     <div class="search-bar">
-      <h2> Collect your favourites</h2>
+      <h2>Collect your favourites</h2>
 
       <input
           v-model="searchTerm"
@@ -11,83 +11,84 @@
       />
     </div>
 
+    <hr />
 
     <div class="grid">
-      <div
-          v-for="movie in movies"
-          :key="movie.id"
-          class="movie-card"
-      >
+      <div v-for="movie in movies" :key="movie.id" class="movie-card">
         <img :src="movie.image" :alt="movie.title" />
         <div class="card-content">
           <h3>{{ movie.title }}</h3>
           <p>{{ movie.description }}</p>
         </div>
 
-        <button class="close-btn" @click="removeMovie(movie.id)">✖</button>
+        <button class="close-btn" @click="removeMovie(movie.id)">
+          <img src="../../src/assets/Close White.svg" alt="Close" />
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import WildWest from '../assets/Wild West.jpg';
-import Spiderman from '../assets/Spiderman.jpg';
-import Batman from '../assets/Batman.jpg';
+import WildWest from "../assets/Wild West.jpg";
+import Spiderman from "../assets/Spiderman.jpg";
+import Batman from "../assets/Batman.jpg";
 
 export default {
-  name: 'VideoSection',
+  name: "VideoSection",
   data() {
     return {
-      searchTerm: '',
+      searchTerm: "",
       nextId: 4,
       movies: [
         {
           id: 1,
-          title: 'Batman Returns',
-          description: 'Lorem ipsum dolor sit amet, ' +
-              'consectetur adipiscing elit. Praesent ' +
-              'nec ligula eu lorem hendrerit hendrerit. ' +
-              'Cras eget est non felis consectetur fringilla.' +
-              ' Suspendisse potenti. Morbi finibus turpis' +
-              ' sit amet justo tincidunt, a efficitur purus ' +
-              'porttitor. Etiam commodo felis eu magna fermentum,' +
-              ' sed tincidunt leo dapibus.',
+          title: "Batman Returns",
+          description:
+              "Lorem ipsum dolor sit amet, " +
+              "consectetur adipiscing elit. Praesent " +
+              "nec ligula eu lorem hendrerit hendrerit. " +
+              "Cras eget est non felis consectetur fringilla." +
+              " Suspendisse potenti. Morbi finibus turpis" +
+              " sit amet justo tincidunt, a efficitur purus " +
+              "porttitor. Etiam commodo felis eu magna fermentum," +
+              " sed tincidunt leo dapibus.",
           image: Batman,
         },
         {
           id: 2,
-          title: 'Wild Wild West',
-          description: 'Lorem ipsum dolor sit amet, ' +
-              'consectetur adipiscing elit. Praesent ' +
-              'nec ligula eu lorem hendrerit hendrerit. ' +
-              'Cras eget est non felis consectetur fringilla.' +
-              ' Suspendisse potenti. Morbi finibus turpis' +
-              ' sit amet justo tincidunt, a efficitur purus ' +
-              'porttitor. Etiam commodo felis eu magna fermentum,' +
-              ' sed tincidunt leo dapibus.',
+          title: "Wild Wild West",
+          description:
+              "Lorem ipsum dolor sit amet, " +
+              "consectetur adipiscing elit. Praesent " +
+              "nec ligula eu lorem hendrerit hendrerit. " +
+              "Cras eget est non felis consectetur fringilla." +
+              " Suspendisse potenti. Morbi finibus turpis" +
+              " sit amet justo tincidunt, a efficitur purus " +
+              "porttitor. Etiam commodo felis eu magna fermentum," +
+              " sed tincidunt leo dapibus.",
           image: WildWest,
         },
         {
           id: 3,
-          title: 'The Amazing Spiderman',
-          description: 'Lorem ipsum dolor sit amet, ' +
-              'consectetur adipiscing elit. Praesent ' +
-              'nec ligula eu lorem hendrerit hendrerit. ' +
-              'Cras eget est non felis consectetur fringilla.' +
-              ' Suspendisse potenti. Morbi finibus turpis' +
-              ' sit amet justo tincidunt, a efficitur purus ' +
-              'porttitor. Etiam commodo felis eu magna fermentum,' +
-              ' sed tincidunt leo dapibus.',
+          title: "The Amazing Spiderman",
+          description:
+              "Lorem ipsum dolor sit amet, " +
+              "consectetur adipiscing elit. Praesent " +
+              "nec ligula eu lorem hendrerit hendrerit. " +
+              "Cras eget est non felis consectetur fringilla." +
+              " Suspendisse potenti. Morbi finibus turpis" +
+              " sit amet justo tincidunt, a efficitur purus " +
+              "porttitor. Etiam commodo felis eu magna fermentum," +
+              " sed tincidunt leo dapibus.",
           image: Spiderman,
         },
-
       ],
     };
   },
   methods: {
     async searchMovies() {
-      if (this.searchTerm.trim() === '') return;
+      if (this.searchTerm.trim() === "") return;
 
       try {
         const res = await fetch(
@@ -101,16 +102,17 @@ export default {
             id: this.nextId++,
             title: show.name,
             description:
-                show.summary?.replace(/<[^>]*>/g, '') || 'No description available.',
+                show.summary?.replace(/<[^>]*>/g, "") ||
+                "No description available.",
             image:
                 show.image?.medium ||
-                'https://via.placeholder.com/210x295?text=No+Image',
+                "https://via.placeholder.com/210x295?text=No+Image",
           });
         }
 
-        this.searchTerm = '';
+        this.searchTerm = "";
       } catch (error) {
-        console.error('Search failed:', error);
+        console.error("Search failed:", error);
       }
     },
     removeMovie(id) {
@@ -121,7 +123,6 @@ export default {
 </script>
 
 <style scoped>
-
 .search-bar {
   display: flex;
   flex-direction: row;
@@ -130,7 +131,6 @@ export default {
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
-
 }
 
 .search-bar h2 {
@@ -155,8 +155,6 @@ export default {
     text-align: left;
   }
 }
-
-
 
 .search-input {
   padding: 0.5rem;
@@ -201,7 +199,7 @@ export default {
 
 .movie-grid {
   color: white;
-  background-color: #111;
+  background-color: #111111;
   min-height: 100vh;
   padding-left: 7vw;
   padding-right: 7vw;
@@ -213,19 +211,30 @@ export default {
 }
 
 .search-input {
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
   font-size: 1rem;
-  margin-bottom: 2rem;
-  width: 100%;
+  width: 80%;
   max-width: 400px;
   border: none;
   border-radius: 4px;
+  background-color: transparent;
+  background-image: url("../../src/assets/Search White.svg");
+  background-repeat: no-repeat;
+  background-position: 0.5rem center;
+  background-size: 20px 20px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  padding-top:2vh;
 }
 
 @media (max-width: 1024px) {
@@ -240,7 +249,6 @@ export default {
   }
 }
 
-
 .movie-card {
   background-color: #222;
   border-radius: 8px;
@@ -248,6 +256,7 @@ export default {
   box-shadow: 0 0 5px #000;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .movie-card img {
@@ -280,16 +289,20 @@ export default {
   text-overflow: ellipsis;
 }
 
-
 .close-btn {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: #e00;
-  color: white;
+  background: rgb(64, 56, 56);
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
   cursor: pointer;
+  padding: 8px;
+  z-index: 2;
+}
+
+.close-btn img {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 </style>
