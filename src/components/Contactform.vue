@@ -134,7 +134,6 @@ function validate() {
   gap: 2rem;
 }
 
-/* Apply 1/3 - 2/3 split on medium+ screens */
 @media (min-width: 768px) {
   .contact-map {
     grid-template-columns: 1fr 2fr;

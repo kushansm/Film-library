@@ -19,8 +19,11 @@
           class="movie-card"
       >
         <img :src="movie.image" :alt="movie.title" />
-        <h3>{{ movie.title }}</h3>
-        <p>{{ movie.description }}</p>
+        <div class="card-content">
+          <h3>{{ movie.title }}</h3>
+          <p>{{ movie.description }}</p>
+        </div>
+
         <button class="close-btn" @click="removeMovie(movie.id)">✖</button>
       </div>
     </div>
@@ -42,25 +45,40 @@ export default {
         {
           id: 1,
           title: 'Batman Returns',
-          description: 'Lorem ipsum dolor sit amet,\n' +
-              'consetetur sadipscing elitr, sed diam\n' +
-              'nonumy eirmod tempor invidunt ut',
+          description: 'Lorem ipsum dolor sit amet, ' +
+              'consectetur adipiscing elit. Praesent ' +
+              'nec ligula eu lorem hendrerit hendrerit. ' +
+              'Cras eget est non felis consectetur fringilla.' +
+              ' Suspendisse potenti. Morbi finibus turpis' +
+              ' sit amet justo tincidunt, a efficitur purus ' +
+              'porttitor. Etiam commodo felis eu magna fermentum,' +
+              ' sed tincidunt leo dapibus.',
           image: Batman,
         },
         {
           id: 2,
           title: 'Wild Wild West',
-          description: 'Lorem ipsum dolor sit amet,\n' +
-              'consetetur sadipscing elitr, sed diam\n' +
-              'nonumy eirmod tempor invidunt ut',
+          description: 'Lorem ipsum dolor sit amet, ' +
+              'consectetur adipiscing elit. Praesent ' +
+              'nec ligula eu lorem hendrerit hendrerit. ' +
+              'Cras eget est non felis consectetur fringilla.' +
+              ' Suspendisse potenti. Morbi finibus turpis' +
+              ' sit amet justo tincidunt, a efficitur purus ' +
+              'porttitor. Etiam commodo felis eu magna fermentum,' +
+              ' sed tincidunt leo dapibus.',
           image: WildWest,
         },
         {
           id: 3,
           title: 'The Amazing Spiderman',
-          description: 'Lorem ipsum dolor sit amet,\n' +
-              'consetetur sadipscing elitr, sed diam\n' +
-              'nonumy eirmod tempor invidunt ut',
+          description: 'Lorem ipsum dolor sit amet, ' +
+              'consectetur adipiscing elit. Praesent ' +
+              'nec ligula eu lorem hendrerit hendrerit. ' +
+              'Cras eget est non felis consectetur fringilla.' +
+              ' Suspendisse potenti. Morbi finibus turpis' +
+              ' sit amet justo tincidunt, a efficitur purus ' +
+              'porttitor. Etiam commodo felis eu magna fermentum,' +
+              ' sed tincidunt leo dapibus.',
           image: Spiderman,
         },
 
@@ -184,11 +202,23 @@ export default {
 .movie-card h3 {
   margin: 0.5rem 0 0.25rem;
 }
+.card-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 
-.movie-card p {
+.card-content p {
   font-size: 0.9rem;
   color: #ccc;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of visible lines */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 }
+
 
 .close-btn {
   position: absolute;
