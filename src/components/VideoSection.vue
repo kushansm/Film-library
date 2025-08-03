@@ -1,27 +1,32 @@
 <template>
-  <section class="movie-grid">
+  <section class="movie-grid" lang="en" dir="rtl" aria-labelledby="main-title">
     <div class="search-bar">
-      <h2>Collect your favourites</h2>
+      <h2 id="main-title" tabindex="0">Collect your favourites</h2>
 
       <input
           v-model="searchTerm"
           @input="searchMovies"
           placeholder="Search title and add to grid"
           class="search-input"
+          aria-label="Search movies by title"
       />
     </div>
 
     <hr />
 
     <div class="grid">
-      <div v-for="movie in movies" :key="movie.id" class="movie-card">
+      <div v-for="movie in movies" :key="movie.id" class="movie-card fade-in">
         <img :src="movie.image" :alt="movie.title" />
         <div class="card-content">
-          <h3>{{ movie.title }}</h3>
+          <h3 tabindex="0">{{ movie.title }}</h3>
           <p>{{ movie.description }}</p>
         </div>
 
-        <button class="close-btn" @click="removeMovie(movie.id)">
+        <button
+            class="close-btn"
+            @click="removeMovie(movie.id)"
+            aria-label="Remove {{ movie.title }}"
+        >
           <img src="../../src/assets/Close White.svg" alt="Close" />
         </button>
       </div>
@@ -45,42 +50,21 @@ export default {
           id: 1,
           title: "Batman Returns",
           description:
-              "Lorem ipsum dolor sit amet, " +
-              "consectetur adipiscing elit. Praesent " +
-              "nec ligula eu lorem hendrerit hendrerit. " +
-              "Cras eget est non felis consectetur fringilla." +
-              " Suspendisse potenti. Morbi finibus turpis" +
-              " sit amet justo tincidunt, a efficitur purus " +
-              "porttitor. Etiam commodo felis eu magna fermentum," +
-              " sed tincidunt leo dapibus.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec ligula eu lorem hendrerit hendrerit. Cras eget est non felis consectetur fringilla. Suspendisse potenti. Morbi finibus turpis sit amet justo tincidunt, a efficitur purus porttitor. Etiam commodo felis eu magna fermentum, sed tincidunt leo dapibus.",
           image: Batman,
         },
         {
           id: 2,
           title: "Wild Wild West",
           description:
-              "Lorem ipsum dolor sit amet, " +
-              "consectetur adipiscing elit. Praesent " +
-              "nec ligula eu lorem hendrerit hendrerit. " +
-              "Cras eget est non felis consectetur fringilla." +
-              " Suspendisse potenti. Morbi finibus turpis" +
-              " sit amet justo tincidunt, a efficitur purus " +
-              "porttitor. Etiam commodo felis eu magna fermentum," +
-              " sed tincidunt leo dapibus.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec ligula eu lorem hendrerit hendrerit. Cras eget est non felis consectetur fringilla. Suspendisse potenti. Morbi finibus turpis sit amet justo tincidunt, a efficitur purus porttitor. Etiam commodo felis eu magna fermentum, sed tincidunt leo dapibus.",
           image: WildWest,
         },
         {
           id: 3,
           title: "The Amazing Spiderman",
           description:
-              "Lorem ipsum dolor sit amet, " +
-              "consectetur adipiscing elit. Praesent " +
-              "nec ligula eu lorem hendrerit hendrerit. " +
-              "Cras eget est non felis consectetur fringilla." +
-              " Suspendisse potenti. Morbi finibus turpis" +
-              " sit amet justo tincidunt, a efficitur purus " +
-              "porttitor. Etiam commodo felis eu magna fermentum," +
-              " sed tincidunt leo dapibus.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec ligula eu lorem hendrerit hendrerit. Cras eget est non felis consectetur fringilla. Suspendisse potenti. Morbi finibus turpis sit amet justo tincidunt, a efficitur purus porttitor. Etiam commodo felis eu magna fermentum, sed tincidunt leo dapibus.",
           image: Spiderman,
         },
       ],
@@ -102,8 +86,7 @@ export default {
             id: this.nextId++,
             title: show.name,
             description:
-                show.summary?.replace(/<[^>]*>/g, "") ||
-                "No description available.",
+                show.summary?.replace(/<[^>]*>/g, "") || "No description available.",
             image:
                 show.image?.medium ||
                 "https://via.placeholder.com/210x295?text=No+Image",
@@ -123,6 +106,33 @@ export default {
 </script>
 
 <style scoped>
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.movie-grid {
+  color: white;
+  background-color: #111111;
+  min-height: 100vh;
+  padding-left: 7vw;
+  padding-right: 7vw;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  line-height: 1.6;
+}
+
 .search-bar {
   display: flex;
   flex-direction: row;
@@ -140,74 +150,17 @@ export default {
   flex: 1;
   min-width: 200px;
   word-break: break-word;
-}
-@media (max-width: 1024px) {
-  .search-bar h2 {
-    font-size: 1.75rem;
-    margin-top: 2vh;
-  }
-}
-@media (max-width: 600px) {
-  .search-bar h2 {
-    font-size: 1.5rem !important;
-    margin-top: 1vh;
-    width: 100%;
-    text-align: left;
-  }
+  cursor: pointer;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  outline-offset: 2px;
 }
 
-.search-input {
-  padding: 0.5rem;
-  font-size: 1rem;
-  flex-grow: 1;
-  min-width: 200px;
-  border: none;
-  border-radius: 4px;
-}
-
-@media (max-width: 1024px) {
-  .search-bar {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .search-bar h2 {
-    font-size: 1.75rem;
-  }
-
-  .search-input {
-    max-width: 300px;
-  }
-}
-
-@media (max-width: 600px) {
-  .search-bar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .search-bar h2 {
-    font-size: 1.5rem;
-    width: 100%;
-  }
-
-  .search-input {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
-.movie-grid {
-  color: white;
-  background-color: #111111;
-  min-height: 100vh;
-  padding-left: 7vw;
-  padding-right: 7vw;
-}
-
-.movie-grid h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+/* Hover & focus effect on h2 */
+.search-bar h2:hover,
+.search-bar h2:focus {
+  color: #1e90ff;
+  text-decoration: underline;
+  outline: none;
 }
 
 .search-input {
@@ -234,7 +187,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  padding-top:2vh;
+  padding-top: 2vh;
 }
 
 @media (max-width: 1024px) {
@@ -257,6 +210,8 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+  opacity: 0; /* Start hidden for fade-in */
+  animation-fill-mode: forwards;
 }
 
 .movie-card img {
@@ -271,7 +226,19 @@ export default {
 
 .movie-card h3 {
   margin: 0.5rem 0 0.25rem;
+  cursor: pointer;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  outline-offset: 2px;
 }
+
+/* Hover & focus effect on h3 */
+.movie-card h3:hover,
+.movie-card h3:focus {
+  color: #1e90ff;
+  text-decoration: underline;
+  outline: none;
+}
+
 .card-content {
   padding: 1rem;
   display: flex;
@@ -298,11 +265,51 @@ export default {
   cursor: pointer;
   padding: 8px;
   z-index: 2;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover & focus effect on button */
+.close-btn:hover,
+.close-btn:focus {
+  background-color: #a00;
+  outline: none;
 }
 
 .close-btn img {
   width: 20px;
   height: 20px;
   display: block;
+}
+
+/* Responsive typography adjustments */
+@media (max-width: 1024px) {
+  .search-bar h2 {
+    font-size: 1.75rem;
+    margin-top: 2vh;
+  }
+
+  .search-input {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-bar h2 {
+    font-size: 1.5rem !important;
+    margin-top: 1vh;
+    width: 100%;
+    text-align: left;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 </style>
