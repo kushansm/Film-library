@@ -150,13 +150,13 @@ nav {
   transform: translateY(-2px);
 }
 
-/* Hamburger */
+
 .hamburger {
   display: none;
   cursor: pointer;
 }
 
-/* Drawer */
+
 .drawer {
   position: fixed;
   top: 0;
@@ -240,7 +240,6 @@ nav {
   left: 2vw;
 }
 
-/* Media Queries */
 @media (min-width: 1024px) {
   .hide-on-md {
     display: inline;
