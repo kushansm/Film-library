@@ -44,30 +44,32 @@ function validate() {
 </script>
 
 <template>
-  <section class="contact-us-heading">
+  <section class="contact-us-heading" tabindex="0">
     <h2>How to reach us</h2>
     <p class="intro-text">Lorem ipsum dolor sit amet, consetetur.</p>
   </section>
 
   <section class="contact-map">
-    <div class="form-section">
-      <form @submit.prevent="validate">
+    <div class="form-section fade-in" role="form" aria-labelledby="contact-form-title">
+      <form @submit.prevent="validate" novalidate>
+        <h3 id="contact-form-title" class="form-title" tabindex="0">Contact Form</h3>
+
         <div class="form-group" :class="{ error: errors.firstName }">
           <label for="firstName">First Name *</label>
-          <input id="firstName" v-model="firstName" />
-          <p v-if="errors.firstName">{{ errors.firstName }}</p>
+          <input id="firstName" v-model="firstName" aria-required="true" aria-invalid="{{errors.firstName ? 'true' : 'false'}}" />
+          <p v-if="errors.firstName" role="alert">{{ errors.firstName }}</p>
         </div>
 
         <div class="form-group" :class="{ error: errors.lastName }">
           <label for="lastName">Last Name *</label>
-          <input id="lastName" v-model="lastName" />
-          <p v-if="errors.lastName">{{ errors.lastName }}</p>
+          <input id="lastName" v-model="lastName" aria-required="true" aria-invalid="{{errors.lastName ? 'true' : 'false'}}" />
+          <p v-if="errors.lastName" role="alert">{{ errors.lastName }}</p>
         </div>
 
         <div class="form-group" :class="{ error: errors.email }">
           <label for="email">Email *</label>
-          <input id="email" v-model="email" type="email" />
-          <p v-if="errors.email">{{ errors.email }}</p>
+          <input id="email" v-model="email" type="email" aria-required="true" aria-invalid="{{errors.email ? 'true' : 'false'}}" />
+          <p v-if="errors.email" role="alert">{{ errors.email }}</p>
         </div>
 
         <div class="form-group">
@@ -77,23 +79,23 @@ function validate() {
 
         <div class="form-group" :class="{ error: errors.message }">
           <label for="message">Message *</label>
-          <textarea id="message" v-model="message"></textarea>
-          <p v-if="errors.message">{{ errors.message }}</p>
+          <textarea id="message" v-model="message" aria-required="true" aria-invalid="{{errors.message ? 'true' : 'false'}}"></textarea>
+          <p v-if="errors.message" role="alert">{{ errors.message }}</p>
         </div>
 
         <div class="form-group" :class="{ error: errors.agreed }">
           <div class="checkbox-wrapper">
-            <input type="checkbox" id="agreed" v-model="agreed" />
+            <input type="checkbox" id="agreed" v-model="agreed" aria-required="true" aria-invalid="{{errors.agreed ? 'true' : 'false'}}" />
             <label for="agreed">I agree to the Terms & Conditions</label>
           </div>
-          <p v-if="errors.agreed">{{ errors.agreed }}</p>
+          <p v-if="errors.agreed" role="alert">{{ errors.agreed }}</p>
         </div>
 
-        <button type="submit">SUBMIT</button>
+        <button type="submit" aria-label="Submit contact form">SUBMIT</button>
       </form>
     </div>
 
-    <div class="map-section">
+    <div class="map-section" aria-label="Location map">
       <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.204040437366!2d-3.6530426843102294!3d40.43966056393764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422f183e51e3b9%3A0x60a3136e08673a6d!2sAmadeus%20IT%20Group!5e0!3m2!1sen!2slk!4v1688283556186!5m2!1sen!2slk"
           style="border:0;"
@@ -105,17 +107,39 @@ function validate() {
   </section>
 </template>
 
-
 <style scoped>
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
 .contact-us-heading {
   padding: 2rem 7vw 1rem;
   background-color: #000;
   color: white;
+  outline-offset: 4px;
 }
-
 .contact-us-heading h2 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  outline-offset: 2px;
+}
+.contact-us-heading h2:hover,
+.contact-us-heading h2:focus {
+  color: #f89603;
+  text-decoration: underline;
+  outline: none;
 }
 
 .contact-us-heading .intro-text {
@@ -155,10 +179,25 @@ function validate() {
   border: none;
   box-sizing: border-box;
 }
+
 form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.form-title {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  outline-offset: 2px;
+}
+.form-title:hover,
+.form-title:focus {
+  color: #f89603;
+  text-decoration: underline;
+  outline: none;
 }
 
 input,
@@ -171,6 +210,12 @@ textarea {
   color: white;
   font-size: 1rem;
   box-sizing: border-box;
+  outline-offset: 3px;
+}
+input:focus,
+textarea:focus {
+  border-color: #f89603;
+  outline: none;
 }
 
 textarea {
@@ -189,10 +234,13 @@ button {
   cursor: pointer;
   width: fit-content;
   align-self: flex-end;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
+button:hover,
+button:focus {
   background-color: #ebf300;
+  outline: none;
 }
 
 .form-group.error input,
@@ -213,11 +261,16 @@ button:hover {
   font-size: 1rem;
 }
 
-.checkbox-wrapper input[type="checkbox"] {
+.checkbox-wrapper input[type='checkbox'] {
   accent-color: #f89603;
   width: 18px;
   height: 18px;
   cursor: pointer;
+  outline-offset: 3px;
+}
+.checkbox-wrapper input[type='checkbox']:focus {
+  outline: 2px solid #f89603;
+  outline-offset: 0;
 }
 
 .checkbox-wrapper label {
