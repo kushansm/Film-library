@@ -127,27 +127,34 @@ function validate() {
   background-color: #000;
   color: white;
   padding: 7vw;
-
-  /* Grid for medium+ screens */
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
+  box-sizing: border-box;
 }
-
 @media (min-width: 768px) {
   .contact-map {
     grid-template-columns: 1fr 2fr;
   }
 }
-
-.form-section{
-  width: 100%;
+@media (min-width: 1024px) {
+  .contact-map {
+    grid-template-columns: 1fr 2fr;
+  }
 }
 
+.form-section,
 .map-section {
-  margin-right: 5vw;
+  width: 100%;
+  box-sizing: border-box;
 }
-
+.map-section iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  border: none;
+  box-sizing: border-box;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -163,6 +170,7 @@ textarea {
   border-radius: 4px;
   color: white;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 textarea {
@@ -216,14 +224,35 @@ button:hover {
   cursor: pointer;
 }
 
-
-
 .map-section iframe {
   width: 100%;
   height: 100%;
-  min-height: 500px;
+  min-height: 400px;
   border: none;
-  margin-left: 5vw;
 }
 
+@media (max-width: 768px) {
+  .contact-map {
+    grid-template-columns: 1fr;
+    padding: 5vw;
+  }
+  .contact-us-heading h2 {
+    font-size: 1.5rem;
+  }
+  .map-section iframe {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-us-heading h2 {
+    font-size: 1.2rem;
+  }
+  .contact-us-heading .intro-text {
+    font-size: 0.95rem;
+  }
+  button {
+    width: 100%;
+  }
+}
 </style>

@@ -137,16 +137,66 @@ export default {
   font-size: 2rem;
   color: white;
   margin-top: 4vh;
-
+  flex: 1;
+  min-width: 200px;
+  word-break: break-word;
 }
+@media (max-width: 1024px) {
+  .search-bar h2 {
+    font-size: 1.75rem;
+    margin-top: 2vh;
+  }
+}
+@media (max-width: 600px) {
+  .search-bar h2 {
+    font-size: 1.5rem !important;
+    margin-top: 1vh;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+
 
 .search-input {
   padding: 0.5rem;
   font-size: 1rem;
   flex-grow: 1;
-  max-width: 400px;
+  min-width: 200px;
   border: none;
   border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+  .search-bar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .search-bar h2 {
+    font-size: 1.75rem;
+  }
+
+  .search-input {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-bar h2 {
+    font-size: 1.5rem;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .movie-grid {
@@ -173,20 +223,31 @@ export default {
 }
 
 .grid {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .movie-card {
   background-color: #222;
   border-radius: 8px;
-  padding: 0rem;
-  width: 31%;
-  position: relative;
+  overflow: hidden;
   box-shadow: 0 0 5px #000;
+  display: flex;
+  flex-direction: column;
 }
 
 .movie-card img {
