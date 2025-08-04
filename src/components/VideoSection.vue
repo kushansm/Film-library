@@ -25,7 +25,7 @@
         <button
             class="close-btn"
             @click="removeMovie(movie.id)"
-            aria-label="Remove {{ movie.title }}"
+            :aria-label="`Remove ${movie.title}`"
         >
           <img src="../../src/assets/Close White.svg" alt="Close" />
         </button>
@@ -141,6 +141,8 @@ export default {
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 2rem;
+  /* Because dir=rtl, flex-start is right, flex-end is left */
+  direction: ltr; /* Flip flex order so h2 is on left, input on right */
 }
 
 .search-bar h2 {
@@ -150,17 +152,11 @@ export default {
   flex: 1;
   min-width: 200px;
   word-break: break-word;
-  cursor: pointer;
-  transition: color 0.3s ease, text-decoration 0.3s ease;
-  outline-offset: 2px;
-}
-
-/* Hover & focus effect on h2 */
-.search-bar h2:hover,
-.search-bar h2:focus {
-  color: #1e90ff;
-  text-decoration: underline;
-  outline: none;
+  cursor: default; /* not clickable */
+  text-align: left; /* left align the title */
+  user-select: none;
+  /* Remove hover & focus effects */
+  transition: none;
 }
 
 .search-input {
@@ -177,6 +173,7 @@ export default {
   background-size: 20px 20px;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: left; /* input text left aligned */
 }
 
 .search-input::placeholder {
@@ -298,6 +295,7 @@ export default {
   .search-bar {
     flex-direction: column;
     align-items: flex-start;
+    direction: ltr;
   }
 
   .search-bar h2 {
